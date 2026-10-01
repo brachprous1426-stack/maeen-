@@ -1,0 +1,12 @@
+node_modules/
+.next/
+.next-production-check/
+.next-review-dev/
+.npm-cache/
+.report-qa/
+.env
+.env*.local
+*.db
+*.db-journal
+API KEY*.txt
+public/assets/generated/

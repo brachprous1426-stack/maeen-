@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String            @id @default(cuid())
+  name         String
+  accessCode   String            @unique
+  isActive     Boolean           @default(true)
+  role         Role              @default(USER)
+  groupName    String?
+  supervisorId String?
+  sessionVersion Int             @default(0)
+  createdAt    DateTime          @default(now())
+  comments     Comment[]
+  progress     ProgressTracker[]
+  supervisor   User?             @relation("SupervisorToStudent", fields: [supervisorId], references: [id])
+  students     User[]            @relation("SupervisorToStudent")
+}
+
+model Category {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  contents Content[]
+}
+
+model Content {
+  id            String            @id @default(cuid())
+  title         String
+  description   String
+  type          ContentType
+  mediaUrl      String
+  coverImageUrl String?
+  createdAt     DateTime          @default(now())
+  categoryId    String
+  author        String?
+  duration      String?
+  pageCount     Int?
+  comments      Comment[]
+  category      Category          @relation(fields: [categoryId], references: [id])
+  progress      ProgressTracker[]
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  text      String
+  contentId String
+  userId    String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Restrict)
+  content   Content  @relation(fields: [contentId], references: [id], onDelete: Restrict)
+}
+
+model ProgressTracker {
+  id          String         @id @default(cuid())
+  userId      String
+  contentId   String
+  status      ProgressStatus @default(PENDING)
+  requestedAt DateTime       @default(now())
+  completedAt DateTime?
+  createdBy   CreatedBy      @default(SELF)
+  content     Content        @relation(fields: [contentId], references: [id], onDelete: Restrict)
+  user        User           @relation(fields: [userId], references: [id], onDelete: Restrict)
+
+  @@unique([userId, contentId])
+}
+
+enum Role {
+  ADMIN
+  SUPERVISOR
+  USER
+}
+
+enum ContentType {
+  BOOK
+  AUDIO
+}
+
+enum ProgressStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum CreatedBy {
+  SELF
+  ADMIN
+}

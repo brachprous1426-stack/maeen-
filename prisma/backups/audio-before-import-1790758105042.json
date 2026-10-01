@@ -1,0 +1,41 @@
+[
+  {
+    "id": "cmufndkhe0004mnoo0fspv3ei",
+    "title": "رحلة في الوعي",
+    "description": "مادة صوتية قصيرة للتأمل والتطوير.",
+    "type": "AUDIO",
+    "mediaUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "coverImageUrl": null,
+    "author": null,
+    "pageCount": null,
+    "duration": null,
+    "createdAt": "2026-09-24T14:48:57.074Z",
+    "categoryId": "cmufndkh80002mnook0bf4rwe"
+  },
+  {
+    "id": "cmufnmimj000emnq8pt9unz5o",
+    "title": "محاضرة ما لا يسع المربي جهله",
+    "description": "",
+    "type": "AUDIO",
+    "mediaUrl": "https://www.youtube.com/watch?v=placeholder",
+    "coverImageUrl": null,
+    "author": "محمد الدويش",
+    "pageCount": null,
+    "duration": "محاضرة واحدة",
+    "createdAt": "2026-09-24T14:55:54.572Z",
+    "categoryId": "cmufnmill0001mnq8gyfoao4k"
+  },
+  {
+    "id": "cmufnmiqn002qmnq8n0tj7fqj",
+    "title": "المدخل إلى علم الفقه",
+    "description": "",
+    "type": "AUDIO",
+    "mediaUrl": "https://www.youtube.com/watch?v=placeholder",
+    "coverImageUrl": null,
+    "author": "عامر بهجت",
+    "pageCount": null,
+    "duration": "20 مقطع",
+    "createdAt": "2026-09-24T14:55:54.719Z",
+    "categoryId": "cmufnmim00005mnq8o6lpq8lu"
+  }
+]

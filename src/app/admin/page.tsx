@@ -1,0 +1,1 @@
+import {redirect} from 'next/navigation';import {getSession} from '@/lib/auth';import AdminPanel from '@/components/AdminPanel';export default async function Admin(){const u=await getSession();if(!u||u.role!=='ADMIN')redirect('/');return <AdminPanel/>}

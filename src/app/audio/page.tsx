@@ -1,0 +1,1 @@
+import {redirect} from 'next/navigation';import {getSession} from '@/lib/auth';import Library from '@/components/Library';export default async function Audio(){const user=await getSession();if(!user)redirect('/login');return <Library user={user} fixedType="AUDIO" />}
