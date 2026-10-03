@@ -19,6 +19,7 @@ model User {
   createdAt    DateTime          @default(now())
   comments     Comment[]
   progress     ProgressTracker[]
+  achievements Achievement[]
   supervisor   User?             @relation("SupervisorToStudent", fields: [supervisorId], references: [id])
   students     User[]            @relation("SupervisorToStudent")
 }
@@ -90,4 +91,18 @@ enum ProgressStatus {
 enum CreatedBy {
   SELF
   ADMIN
+}
+
+model Achievement {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      AchievementType
+  amount    Int
+  createdAt DateTime @default(now())
+}
+
+enum AchievementType {
+  LISTENING
+  READING
 }
