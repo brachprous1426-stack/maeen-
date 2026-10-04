@@ -18,7 +18,7 @@ export default function AchievementBoard({ students, currentUserId }: { students
   const missing = students.reduce((n, s) => n + s.missingAudio + s.missingBooks, 0);
   const groups = [...new Set(students.map(s => s.group))].sort((a, b) => a.localeCompare(b, 'ar'));
   return <main>
-    <section className="achievement-stats" aria-label="حصيلة الإنجاز"><div><span>حصيلة القراءة</span><strong>{number(filtered.reduce((n, s) => n + s.readingTotal, 0))}<small>صفحة</small></strong><small>من الكتب والتعديلات اليدوية</small></div><div><span>حصيلة السماع</span><strong>{number(filtered.reduce((n, s) => n + s.listeningTotal, 0))}<small>دقيقة</small></strong><small>من المقاطع والتعديلات اليدوية</small></div></section>
+    <section className="achievement-stats" aria-label="حصيلة الإنجاز"><div><span>حصيلة القراءة</span><strong>{number(filtered.reduce((n, s) => n + s.readingTotal, 0))}<small>صفحة</small></strong></div><div><span>حصيلة السماع</span><strong>{number(filtered.reduce((n, s) => n + s.listeningTotal, 0))}<small>دقيقة</small></strong></div></section>
     {!!missing && <p className="achievement-notice" role="status">هناك {number(missing)} إنجازًا معتمدًا بانتظار بيانات الصفحات أو المدة. تُضاف قيمته تلقائيًا فور استكمال بيانات المصدر.</p>}
     <div className="leaderboard-grid">{(['reading', 'listening'] as const).map(kind => {
       const reading = kind === 'reading';
