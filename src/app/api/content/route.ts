@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma, requireUser, requireAdmin } from "@/lib/auth";
 
+import { getLibraryData } from "@/lib/library-data";
 import { getYouTubeThumbnail } from "@/lib/youtube";
 
 export async function GET(req: Request) {
@@ -11,31 +12,12 @@ export async function GET(req: Request) {
     const type = url.searchParams.get("type");
     const category = url.searchParams.get("category");
     const isAdminReq = url.searchParams.get("admin") === "true" && user.role === "ADMIN";
-    const items = await prisma.content.findMany({
-      where: {
-        title: { contains: q },
-        ...(type ? { type: type as "BOOK" | "AUDIO" } : {}),
-        ...(category ? { categoryId: category } : {}),
-      },
-      include: {
-        category: true,
-        progress: { where: { userId: user.id }, select: { status: true } },
-      },
-      orderBy: { createdAt: "desc" },
+    const { items, categories } = await getLibraryData(user.id, {
+      q,
+      type: type === "BOOK" || type === "AUDIO" ? type : undefined,
+      category: category || undefined,
+      admin: isAdminReq,
     });
-    
-    let categories;
-    if (isAdminReq) {
-      categories = await prisma.category.findMany();
-    } else {
-      categories = await prisma.category.findMany({
-        where: {
-          contents: {
-            some: type ? { type: type as "BOOK" | "AUDIO" } : {},
-          },
-        },
-      });
-    }
     return NextResponse.json({ items, categories });
   } catch {
     return NextResponse.json({ error: "غير مصرح" }, { status: 401 });

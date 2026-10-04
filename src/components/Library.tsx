@@ -1,8 +1,10 @@
 ﻿"use client";
 import { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 type Props = {
   user: { id: string; name: string; role: string; groupName?: string | null };
   fixedType?: "BOOK" | "AUDIO";
+  initialData: { items: Item[]; categories: { id: string; name: string }[] };
 };
 type Item = {
   id: string;
@@ -15,7 +17,7 @@ type Item = {
   pageCount?: number | null;
   duration?: string | null;
   category: { name: string };
-  progress: { status: string }[];
+  progress: { id: string; status: string }[];
 };
 function CustomSelect({ value, onChange, options, placeholder }: any) {
   const [open, setOpen] = useState(false);
@@ -137,16 +139,15 @@ function CustomSelect({ value, onChange, options, placeholder }: any) {
   );
 }
 
-export default function Library({ user, fixedType }: Props) {
-  const [items, setItems] = useState<Item[]>([]),
-    [cats, setCats] = useState<any[]>([]),
+export default function Library({ user, fixedType, initialData }: Props) {
+  const [items, setItems] = useState<Item[]>(initialData.items),
+    [cats, setCats] = useState(initialData.categories),
     [q, setQ] = useState(""),
     [cat, setCat] = useState(""),
     [selected, setSelected] = useState<Item | null>(null),
-    [progress, setProgress] = useState<any[]>([]),
     [comments, setComments] = useState<any[]>([]),
     [text, setText] = useState(""),
-    [loading, setLoading] = useState(true),
+    [loading, setLoading] = useState(false),
     [loadError, setLoadError] = useState(false);
   const loadId = useRef(0);
   const load = useCallback(async () => {
@@ -171,21 +172,19 @@ export default function Library({ user, fixedType }: Props) {
     } finally {
       if (id === loadId.current) setLoading(false);
     }
-    try {
-      const p = await fetch("/api/progress");
-      if (!p.ok) return;
-      const data = await p.json();
-      if (id === loadId.current && Array.isArray(data)) setProgress(data);
-    } catch {
-      // Progress availability must not change the content loading state.
-    }
   }, [q, cat, fixedType]);
+  const lastFilters = useRef({ q, cat, fixedType });
   useEffect(() => {
+    const previous = lastFilters.current;
+    if (previous.q === q && previous.cat === cat && previous.fixedType === fixedType) return;
+    lastFilters.current = { q, cat, fixedType };
     load();
+  }, [q, cat, fixedType, load]);
+  useEffect(() => {
     return () => {
       loadId.current++;
     };
-  }, [load]);
+  }, []);
   async function open(i: Item) {
     setSelected(i);
     const r = await fetch("/api/comments");
@@ -204,8 +203,9 @@ export default function Library({ user, fixedType }: Props) {
       alert(d.error || "تعذر إرسال الطلب");
       return;
     }
+    const requested = await r.json();
     await load();
-    setSelected({ ...selected, progress: [{ status: "PENDING" }] });
+    setSelected({ ...selected, progress: [{ id: requested.id, status: "PENDING" }] });
   }
   async function cancel(id: string) {
     if (!id) return;
@@ -248,8 +248,8 @@ export default function Library({ user, fixedType }: Props) {
           <img src="/bader-logo.svg" alt="فريق بادر" style={{ height: '28px', objectFit: 'contain' }} title="مبادرة من فريق بادر" />
         </div>
         <nav>
-          <a href="/books">المقروءات</a>
-          <a href="/audio">المسموعات</a>
+          <Link href="/books" prefetch={true}>المقروءات</Link>
+          <Link href="/audio" prefetch={true}>المسموعات</Link>
           <span>|</span>
           <span>مرحباً، {user.name}</span>
           {user.role === "ADMIN" && <a href="/admin">الإدارة</a>}
@@ -373,10 +373,7 @@ export default function Library({ user, fixedType }: Props) {
                 <button
                   onClick={() =>
                     cancel(
-                      progress.find(
-                        (p) =>
-                          p.contentId === selected.id && p.userId === user.id,
-                      )?.id,
+                      selected.progress[0].id,
                     )
                   }
                   className="secondary"
