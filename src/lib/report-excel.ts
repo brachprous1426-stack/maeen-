@@ -5,7 +5,7 @@ const statusName = { APPROVED: 'مكتمل', PENDING: 'قيد المراجعة',
 
 export async function createExcelReport(report: ProgressReport) {
   const workbook = new ExcelJS.Workbook();
-  workbook.creator = 'منصة البرامج الذاتيه';
+  workbook.creator = 'منصة معين';
   workbook.created = report.generatedAt;
 
   const summary = workbook.addWorksheet('الملخص');

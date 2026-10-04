@@ -1,4 +1,4 @@
-import { redirect } from 'next/navigation';
+﻿import { redirect } from 'next/navigation';
 import { getSession, prisma } from '@/lib/auth';
 import ReportExport from '@/components/ReportExport';
 import AchievementAdjustment from '@/components/AchievementAdjustment';
@@ -35,7 +35,7 @@ export default async function SupervisorPage() {
   return (
     <div className="shell">
       <header>
-        <a href="/books" className="brand">منصة البرامج الذاتيه</a>
+        <a href="/books" className="brand">منصة معين</a>
         <nav><a href="/books">المكتبة</a><a href="/progress">إنجازي</a><a href="/achievements">لوحة الإنجاز</a></nav>
       </header>
       <section className="hero compact">

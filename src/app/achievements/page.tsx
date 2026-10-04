@@ -1,4 +1,4 @@
-import { redirect } from 'next/navigation';
+﻿import { redirect } from 'next/navigation';
 import { getSession, prisma } from '@/lib/auth';
 import { achievementTotals, canAdjust, durationSeconds } from '@/lib/achievement-totals';
 import AchievementBoard from '@/components/AchievementBoard';
@@ -24,7 +24,7 @@ export default async function AchievementsPage() {
   const history = editable.flatMap(student => student.achievements.map(a => ({ ...a, name: student.name }))).sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()).slice(0, 30);
   return <div className="shell achievements-shell">
     <header>
-      <a href="/" className="brand">منصة البرامج الذاتيه</a>
+      <a href="/" className="brand">منصة معين</a>
       <nav>
         <a href="/books">المكتبة</a>
         {actor && <a href="/progress">إنجازي</a>}

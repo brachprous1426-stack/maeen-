@@ -242,7 +242,7 @@ export default function Library({ user, fixedType, initialData }: Props) {
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span className="brand-mark">م</span>
-            <span className="brand">منصة البرامج الذاتيه</span>
+            <span className="brand">منصة معين</span>
           </div>
           <div style={{ width: '1px', height: '24px', background: 'var(--line)' }}></div>
           <img src="/bader-logo.svg" alt="فريق بادر" style={{ height: '28px', objectFit: 'contain' }} title="مبادرة من فريق بادر" />
@@ -308,7 +308,7 @@ export default function Library({ user, fixedType, initialData }: Props) {
                 backgroundImage: `url(${i.coverImageUrl || "/assets/placeholder.svg"})`,
               }}
             >
-              {i.type === "AUDIO" && <span className="play">▶</span>}
+
             </div>
             <div className="card-body">
               <span className="tag">{i.category.name}</span>
@@ -431,6 +431,7 @@ export default function Library({ user, fixedType, initialData }: Props) {
     </div>
   );
 }
+
 
 
 

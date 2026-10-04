@@ -9,7 +9,7 @@ export async function createPowerPointReport(report: ProgressReport) {
   const pptx = new PptxGenJS();
   pptx.layout = 'LAYOUT_WIDE';
   pptx.rtlMode = true;
-  pptx.author = 'منصة البرامج الذاتيه';
+  pptx.author = 'منصة معين';
   pptx.subject = report.title;
   pptx.title = report.title;
   pptx.theme = { headFontFace: 'Arial', bodyFontFace: 'Arial' };
@@ -17,7 +17,7 @@ export async function createPowerPointReport(report: ProgressReport) {
   const cover = pptx.addSlide();
   cover.background = { color: 'F6F2EA' };
   cover.addText(report.title, { x: 0.8, y: 0.9, w: 11.7, h: 0.85, fontFace: 'Arial', fontSize: 38, bold: true, color: pine, align: 'right', rtlMode: true, breakLine: false });
-  cover.addText('منصة البرامج الذاتيه', { x: 0.8, y: 1.82, w: 11.7, h: 0.45, fontFace: 'Arial', fontSize: 21, color: muted, align: 'right', rtlMode: true });
+  cover.addText('منصة معين', { x: 0.8, y: 1.82, w: 11.7, h: 0.45, fontFace: 'Arial', fontSize: 21, color: muted, align: 'right', rtlMode: true });
   cover.addText(`الطلاب: ${report.summary.members}     الكتب المكتملة: ${report.summary.books}     المسموعات المكتملة: ${report.summary.audio}`, {
     x: 0.8, y: 3.05, w: 11.7, h: 0.7, fontFace: 'Arial', fontSize: 23, color: ink, align: 'right', rtlMode: true,
   });

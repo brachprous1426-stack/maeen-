@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useState } from "react";
 import ReportExport from "./ReportExport";
 export default function AdminPanel() {
@@ -119,7 +119,7 @@ export default function AdminPanel() {
     <div className="shell">
       <header>
         <a href="/" className="brand">
-          منصة البرامج الذاتيه · الإدارة
+          منصة معين · الإدارة
         </a>
         <nav>
           <a href="/achievements">لوحة الإنجاز</a>

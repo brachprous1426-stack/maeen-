@@ -1,4 +1,4 @@
-import { redirect } from 'next/navigation';
+﻿import { redirect } from 'next/navigation';
 import { getSession, prisma } from '@/lib/auth';
 
 export default async function Progress() {
@@ -14,7 +14,7 @@ export default async function Progress() {
 
   return (
     <div className="shell">
-      <header><a href="/books" className="brand">منصة البرامج الذاتيه</a><nav><a href="/achievements">لوحة الإنجاز</a><a href="/books">العودة للمكتبة</a></nav></header>
+      <header><a href="/books" className="brand">منصة معين</a><nav><a href="/achievements">لوحة الإنجاز</a><a href="/books">العودة للمكتبة</a></nav></header>
       <section className="hero compact">
         <p className="eyebrow">مساحتي</p>
         <h1>إنجازي</h1>
