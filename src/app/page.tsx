@@ -1,4 +1,4 @@
-import Link from 'next/link';
+﻿import Link from 'next/link';
 import { getSession } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
@@ -12,7 +12,7 @@ export default async function LandingPage() {
       <header>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <div className="brand-mark">م</div>
+            
             <div className="brand">منصة معين</div>
           </div>
           <div style={{ width: '1px', height: '24px', background: 'var(--line)' }}></div>
@@ -114,7 +114,7 @@ export default async function LandingPage() {
       {/* Footer */}
       <footer style={{ textAlign: 'center', padding: '40px 0 0', borderTop: '1px solid var(--line)', color: 'var(--muted)', fontSize: '14px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginBottom: '16px' }}>
-          <div className="brand-mark" style={{ width: "28px", height: "28px", fontSize: "14px" }}>م</div>
+          
           <strong style={{ color: 'var(--pine)', fontSize: '16px' }}>منصة معين</strong>
         </div>
         <p style={{ marginBottom: '16px' }}>موردك الدائم للزاد العلمي والإيماني والدعوي.</p>
@@ -123,6 +123,7 @@ export default async function LandingPage() {
     </div>
   );
 }
+
 
 
 

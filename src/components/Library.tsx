@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 type Props = {
@@ -42,8 +42,8 @@ function CustomSelect({ value, onChange, options, placeholder }: any) {
         onClick={() => setOpen(!open)}
         className="flex items-center justify-between cursor-pointer"
         style={{
-          border: open ? "1px solid #ab8050" : "1px solid var(--line)",
-          boxShadow: open ? "0 0 0 3px #d9bb9233" : "none",
+          border: open ? "1px solid #1a526a" : "1px solid var(--line)",
+          boxShadow: open ? "0 0 0 3px #1a526a33" : "none",
           background: "#fffdfa",
           borderRadius: "10px",
           padding: "12px 14px",
@@ -93,16 +93,16 @@ function CustomSelect({ value, onChange, options, placeholder }: any) {
             className="cursor-pointer transition-colors"
             style={{
               padding: "12px 16px",
-              backgroundColor: value === "" ? "#f3ebdc" : "transparent",
+              backgroundColor: value === "" ? "#e8ecee" : "transparent",
               fontSize: "14px",
             }}
             onMouseOver={(e) =>
               (e.currentTarget.style.backgroundColor =
-                value === "" ? "#f3ebdc" : "#faf7f2")
+                value === "" ? "#e8ecee" : "#f2f5f7")
             }
             onMouseOut={(e) =>
               (e.currentTarget.style.backgroundColor =
-                value === "" ? "#f3ebdc" : "transparent")
+                value === "" ? "#e8ecee" : "transparent")
             }
           >
             {placeholder}
@@ -117,17 +117,17 @@ function CustomSelect({ value, onChange, options, placeholder }: any) {
               className="cursor-pointer transition-colors"
               style={{
                 padding: "12px 16px",
-                backgroundColor: value === o.value ? "#f3ebdc" : "transparent",
+                backgroundColor: value === o.value ? "#e8ecee" : "transparent",
                 borderTop: "1px solid var(--line)",
                 fontSize: "14px",
               }}
               onMouseOver={(e) =>
                 (e.currentTarget.style.backgroundColor =
-                  value === o.value ? "#f3ebdc" : "#faf7f2")
+                  value === o.value ? "#e8ecee" : "#f2f5f7")
               }
               onMouseOut={(e) =>
                 (e.currentTarget.style.backgroundColor =
-                  value === o.value ? "#f3ebdc" : "transparent")
+                  value === o.value ? "#e8ecee" : "transparent")
               }
             >
               {o.label}
@@ -241,7 +241,7 @@ export default function Library({ user, fixedType, initialData }: Props) {
       <header>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span className="brand-mark">م</span>
+            
             <span className="brand">منصة معين</span>
           </div>
           <div style={{ width: '1px', height: '24px', background: 'var(--line)' }}></div>
@@ -431,6 +431,8 @@ export default function Library({ user, fixedType, initialData }: Props) {
     </div>
   );
 }
+
+
 
 
 

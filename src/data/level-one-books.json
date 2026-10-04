@@ -21,31 +21,36 @@
     "id": "1RoR635FujJAzwW3p9C5RfnyCWCv7MJWs",
     "title": "عبق وأيام: نافذة على أيام التابعين",
     "mediaUrl": "https://drive.google.com/file/d/1RoR635FujJAzwW3p9C5RfnyCWCv7MJWs/view?usp=drivesdk",
-    "author": "علي بن جابر الفيفي"
+    "author": "علي بن جابر الفيفي",
+    "coverImageUrl": "/books/abaq_ayyam.png"
   },
   {
     "id": "1CO5CD5NGev822i_19fTd1YNJXQ2JZGzl",
     "title": "قصص من الحياة",
     "mediaUrl": "https://drive.google.com/file/d/1CO5CD5NGev822i_19fTd1YNJXQ2JZGzl/view?usp=drivesdk",
-    "author": "علي الطنطاوي"
+    "author": "علي الطنطاوي",
+    "coverImageUrl": "/books/qisas_hayat.png"
   },
   {
     "id": "1pJDzaR1JOepF_VE0jsweTg8lEL2WjNXn",
     "title": "الرجل النبيل",
     "mediaUrl": "https://drive.google.com/file/d/1pJDzaR1JOepF_VE0jsweTg8lEL2WjNXn/view?usp=drivesdk",
-    "author": "علي بن جابر الفيفي"
+    "author": "علي بن جابر الفيفي",
+    "coverImageUrl": "/books/rajul_nabeel.png"
   },
   {
     "id": "1PYdMlvm-vGfuE33YltFebnZ9HU0EG6qB",
     "title": "الحرب على الكسل: 10 طلقات في قلب الكسل",
     "mediaUrl": "https://drive.google.com/file/d/1PYdMlvm-vGfuE33YltFebnZ9HU0EG6qB/view?usp=drivesdk",
-    "author": "خالد أبو شادي"
+    "author": "خالد أبو شادي",
+    "coverImageUrl": "/books/harb_kasal.jpg"
   },
   {
     "id": "1X143sMIfzyxRM6-K0_L7a5tlJ25ubV7O",
     "title": "صور من حياة التابعين",
     "mediaUrl": "https://drive.google.com/file/d/1X143sMIfzyxRM6-K0_L7a5tlJ25ubV7O/view?usp=drivesdk",
-    "author": "عبد الرحمن رأفت الباشا"
+    "author": "عبد الرحمن رأفت الباشا",
+    "coverImageUrl": "/books/suwar_tabieen.png"
   },
   {
     "id": "1Ah5jNHH2qd80oxi9ntjk-WhLLOD3tXyL",
