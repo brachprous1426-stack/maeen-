@@ -51,19 +51,22 @@
     "id": "1Ah5jNHH2qd80oxi9ntjk-WhLLOD3tXyL",
     "title": "رأس شَيُّوم",
     "mediaUrl": "https://drive.google.com/file/d/1Ah5jNHH2qd80oxi9ntjk-WhLLOD3tXyL/view?usp=drivesdk",
-    "author": "خالد بن سليمان الجبرين"
+    "author": "خالد بن سليمان الجبرين",
+    "coverImageUrl": "/books/raas_shayyum.jpg"
   },
   {
     "id": "1daoJ6bzmsmbp0M9-4hiTytncx2fYolkN",
     "title": "تهذيب الوابل الصيب ورافع الكلم الطيب",
     "mediaUrl": "https://drive.google.com/file/d/1daoJ6bzmsmbp0M9-4hiTytncx2fYolkN/view?usp=drivesdk",
-    "author": "الإمام ابن قيم الجوزية اعتنى به د. سلطان بن ناصر الناصر"
+    "author": "الإمام ابن قيم الجوزية اعتنى به د. سلطان بن ناصر الناصر",
+    "coverImageUrl": "/books/tahdhib_alwabil.png"
   },
   {
     "id": "13LtMSg9ejoQMYMBS9Aht7b36FjYHAIZJ",
     "title": "أبي كما عرفته: لمحات من سيرة الشيخ الإمام عبد الله بن عبد الرحمن الجبرين رحمه الله",
     "mediaUrl": "https://drive.google.com/file/d/13LtMSg9ejoQMYMBS9Aht7b36FjYHAIZJ/view?usp=drivesdk",
-    "author": "هيا بنت عبد الله بن عبد الرحمن الجبرين"
+    "author": "هيا بنت عبد الله بن عبد الرحمن الجبرين",
+    "coverImageUrl": "/books/abi_kama_araftuhu.png"
   },
   {
     "id": "1Lsszc-2OaV8L3ALO6fl7Gsjsr8DLxyxA",
@@ -76,7 +79,8 @@
     "id": "1Og-dxhHPMQgvTD9aqVURQFIqhwCbbdFX",
     "title": "صور من حياة الصحابة",
     "mediaUrl": "https://drive.google.com/file/d/1Og-dxhHPMQgvTD9aqVURQFIqhwCbbdFX/view?usp=drivesdk",
-    "author": "عبد الرحمن رأفت الباشا"
+    "author": "عبد الرحمن رأفت الباشا",
+    "coverImageUrl": "/books/suwar_hayat_sahaba.png"
   },
   {
     "id": "1t42I5yCFKRb_CymumwUxuP5H7x5kFx9h",
@@ -145,6 +149,7 @@
     "id": "1KDl2sawTG1wD87vIldf9Bc6LSyxxfdJJ",
     "title": "مرساة الطريق",
     "mediaUrl": "https://drive.google.com/file/d/1KDl2sawTG1wD87vIldf9Bc6LSyxxfdJJ/view?usp=sharing",
-    "author": "أبو ياسر"
+    "author": "أبو ياسر",
+    "coverImageUrl": "/books/mirsat_altariq.jpg"
   }
 ]
