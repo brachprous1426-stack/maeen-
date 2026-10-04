@@ -69,7 +69,8 @@
     "id": "1Lsszc-2OaV8L3ALO6fl7Gsjsr8DLxyxA",
     "title": "سوار أمي",
     "mediaUrl": "https://drive.google.com/file/d/1Lsszc-2OaV8L3ALO6fl7Gsjsr8DLxyxA/view?usp=drivesdk",
-    "author": "علي بن جابر الفيفي"
+    "author": "علي بن جابر الفيفي",
+    "coverImageUrl": "/books/mothers_bracelet.png"
   },
   {
     "id": "1Og-dxhHPMQgvTD9aqVURQFIqhwCbbdFX",
@@ -81,25 +82,29 @@
     "id": "1t42I5yCFKRb_CymumwUxuP5H7x5kFx9h",
     "title": "تهذيب الداء والدواء",
     "mediaUrl": "https://drive.google.com/file/d/1t42I5yCFKRb_CymumwUxuP5H7x5kFx9h/view?usp=drivesdk",
-    "author": "الإمام ابن قيم الجوزية اعتنى به د. سلطان بن ناصر الناصر ود. تركي بن عبد الله الميمان"
+    "author": "الإمام ابن قيم الجوزية اعتنى به د. سلطان بن ناصر الناصر ود. تركي بن عبد الله الميمان",
+    "coverImageUrl": "/books/tahdhib_aldaa.png"
   },
   {
     "id": "1RcPepFfXas8HMiQgwdUnaREsPSnhsNJG",
     "title": "لأنك الله: رحلة إلى السماء السابعة",
     "mediaUrl": "https://drive.google.com/file/d/1RcPepFfXas8HMiQgwdUnaREsPSnhsNJG/view?usp=drivesdk",
-    "author": "علي بن جابر الفيفي"
+    "author": "علي بن جابر الفيفي",
+    "coverImageUrl": "/books/because_you_are_allah.png"
   },
   {
     "id": "1_3NpkYCvM-MFAG7h2pweeKCXp3vFjpUM",
     "title": "إلى أبنائي وبناتي: 50 شمعة لإضاءة دروبكم",
     "mediaUrl": "https://drive.google.com/file/d/1_3NpkYCvM-MFAG7h2pweeKCXp3vFjpUM/view?usp=drivesdk",
-    "author": "أ.د. عبد الكريم بكار"
+    "author": "أ.د. عبد الكريم بكار",
+    "coverImageUrl": "/books/50_candles.png"
   },
   {
     "id": "1JEgtfxX9RpgMLDUmjYC97VF9XopSOZRf",
     "title": "تهذيب الفوائد",
     "mediaUrl": "https://drive.google.com/file/d/1JEgtfxX9RpgMLDUmjYC97VF9XopSOZRf/view?usp=drivesdk",
-    "author": "الإمام ابن قيم الجوزية اعتنى به د. سلطان بن ناصر الناصر"
+    "author": "الإمام ابن قيم الجوزية اعتنى به د. سلطان بن ناصر الناصر",
+    "coverImageUrl": "/books/tahdhib_alfawaid.png"
   },
   {
     "id": "1H6WQFUDQs9ezpLybEIZ6j0NMvkE7HSz9",
