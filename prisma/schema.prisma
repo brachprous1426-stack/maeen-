@@ -16,6 +16,7 @@ model User {
   groupName    String?
   supervisorId String?
   sessionVersion Int             @default(0)
+  maxAllowedLevel Int            @default(1)
   createdAt    DateTime          @default(now())
   comments     Comment[]
   progress     ProgressTracker[]

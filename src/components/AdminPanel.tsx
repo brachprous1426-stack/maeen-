@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import ReportExport from './ReportExport';
+import ReportExport from "./ReportExport";
 export default function AdminPanel() {
   const [users, setUsers] = useState<any[]>([]),
     [items, setItems] = useState<any[]>([]),
@@ -58,7 +58,7 @@ export default function AdminPanel() {
     });
     if (!response.ok) {
       const data = await response.json();
-      alert(data.error || 'تعذر تحديث الطلب');
+      alert(data.error || "تعذر تحديث الطلب");
     }
     load();
   }
@@ -75,7 +75,7 @@ export default function AdminPanel() {
     });
     if (!response.ok) {
       const data = await response.json();
-      alert(data.error || 'تعذر تسجيل الإنجاز');
+      alert(data.error || "تعذر تسجيل الإنجاز");
       return;
     }
     setManualUserId("");
@@ -89,8 +89,17 @@ export default function AdminPanel() {
       body: JSON.stringify(form),
     });
     const result = await response.json();
-    if (!response.ok) { alert(result.error || 'تعذر حفظ المادة'); return; }
-    if ((result.type === 'BOOK' && !result.pageCount) || (result.type === 'AUDIO' && !result.duration)) alert('حُفظت المادة وتحتاج بيانات المصدر. افتح لوحة الإنجاز لاستكمال عدد الصفحات أو المدة.');
+    if (!response.ok) {
+      alert(result.error || "تعذر حفظ المادة");
+      return;
+    }
+    if (
+      (result.type === "BOOK" && !result.pageCount) ||
+      (result.type === "AUDIO" && !result.duration)
+    )
+      alert(
+        "حُفظت المادة وتحتاج بيانات المصدر. افتح لوحة الإنجاز لاستكمال عدد الصفحات أو المدة.",
+      );
     setForm({
       ...form,
       title: "",
@@ -112,7 +121,10 @@ export default function AdminPanel() {
         <a href="/" className="brand">
           منصة البرامج الذاتيه · الإدارة
         </a>
-        <nav><a href="/achievements">لوحة الإنجاز</a><a href="/books">العودة للمكتبة</a></nav>
+        <nav>
+          <a href="/achievements">لوحة الإنجاز</a>
+          <a href="/books">العودة للمكتبة</a>
+        </nav>
       </header>
       <section className="hero compact">
         <p className="eyebrow">لوحة الإدارة</p>
@@ -123,23 +135,34 @@ export default function AdminPanel() {
       <div className="admin-grid">
         <section className="panel">
           <h2>إدارة الأعضاء</h2>
-          <div className="inline" style={{flexWrap: 'wrap'}}>
+          <div className="inline" style={{ flexWrap: "wrap" }}>
             <input
               placeholder="اسم العضو"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
-            <select value={role} onChange={e => setRole(e.target.value)}>
+            <select value={role} onChange={(e) => setRole(e.target.value)}>
               <option value="USER">طالب</option>
               <option value="SUPERVISOR">مشرف</option>
               <option value="ADMIN">مدير</option>
             </select>
-            <input placeholder="المجموعة (اختياري)" value={groupName} onChange={e => setGroupName(e.target.value)} />
-            <select value={supervisorId} onChange={e => setSupervisorId(e.target.value)}>
+            <input
+              placeholder="المجموعة (اختياري)"
+              value={groupName}
+              onChange={(e) => setGroupName(e.target.value)}
+            />
+            <select
+              value={supervisorId}
+              onChange={(e) => setSupervisorId(e.target.value)}
+            >
               <option value="">بدون مشرف</option>
-              {users.filter(u => u.role === 'SUPERVISOR').map(u => (
-                <option key={u.id} value={u.id}>{u.name}</option>
-              ))}
+              {users
+                .filter((u) => u.role === "SUPERVISOR")
+                .map((u) => (
+                  <option key={u.id} value={u.id}>
+                    {u.name}
+                  </option>
+                ))}
             </select>
             <button onClick={userCreate}>إضافة عضو</button>
           </div>
@@ -150,8 +173,13 @@ export default function AdminPanel() {
                   {u.name} {!u.isActive && "(معطل)"}
                 </b>
                 <small>
-                  الدور: {u.role === 'ADMIN' ? 'مدير' : u.role === 'SUPERVISOR' ? 'مشرف' : 'طالب'} ·{" "}
-                  {u.groupName ? `المجموعة: ${u.groupName} · ` : ""}
+                  الدور:{" "}
+                  {u.role === "ADMIN"
+                    ? "مدير"
+                    : u.role === "SUPERVISOR"
+                      ? "مشرف"
+                      : "طالب"}{" "}
+                  · {u.groupName ? `المجموعة: ${u.groupName} · ` : ""}
                   الرمز: {u.accessCode} ·{" "}
                   {u.progress?.filter((p: any) => p.content.type === "BOOK")
                     .length || 0}{" "}
@@ -161,11 +189,23 @@ export default function AdminPanel() {
                   صوتيات
                 </small>
               </div>
-              <button
-                onClick={() => setViewingUser(u)}
-              >
-                عرض الإنجازات
-              </button>
+              <select
+      value={u.maxAllowedLevel || 1}
+      onChange={async (e) => {
+        await fetch("/api/users", {
+          method: "PATCH",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ id: u.id, action: "setLevel", level: parseInt(e.target.value) })
+        });
+        load();
+      }}
+      style={{ padding: "8px", borderRadius: "8px", border: "1px solid #e2e8f0", background: "#f8fafc", cursor: "pointer", fontSize: "0.9rem" }}
+    >
+      <option value="1">المستوى الأول</option>
+      <option value="2">المستوى الثاني</option>
+      <option value="3">المستوى الثالث</option>
+    </select>
+    <button onClick={() => setViewingUser(u)}>عرض الإنجازات</button>
               <button
                 onClick={async () => {
                   await fetch("/api/users", {
@@ -195,12 +235,21 @@ export default function AdminPanel() {
               </button>
               <button
                 onClick={async () => {
-                  const newGroup = prompt("اكتب اسم المجموعة الجديد (أو اتركه فارغاً للإلغاء):", u.groupName || "");
+                  const newGroup = prompt(
+                    "اكتب اسم المجموعة الجديد (أو اتركه فارغاً للإلغاء):",
+                    u.groupName || "",
+                  );
                   if (newGroup === null) return;
                   await fetch("/api/users", {
                     method: "PATCH",
                     headers: { "content-type": "application/json" },
-                    body: JSON.stringify({ id: u.id, action: "update_profile", groupName: newGroup, role: u.role, supervisorId: u.supervisorId }),
+                    body: JSON.stringify({
+                      id: u.id,
+                      action: "update_profile",
+                      groupName: newGroup,
+                      role: u.role,
+                      supervisorId: u.supervisorId,
+                    }),
                   });
                   load();
                 }}
@@ -210,11 +259,16 @@ export default function AdminPanel() {
               <button
                 className="danger"
                 onClick={async () => {
-                  if(!confirm('هل أنت متأكد من الحذف؟')) return;
-                  const res = await fetch("/api/users?id=" + u.id, { method: "DELETE" });
+                  if (!confirm("هل أنت متأكد من الحذف؟")) return;
+                  const res = await fetch("/api/users?id=" + u.id, {
+                    method: "DELETE",
+                  });
                   if (!res.ok) {
                     const err = await res.json();
-                    alert(err.error || "لا يمكن حذف هذا العضو لوجود إنجازات مرتبطة به. قم بتعطيله بدلاً من ذلك.");
+                    alert(
+                      err.error ||
+                        "لا يمكن حذف هذا العضو لوجود إنجازات مرتبطة به. قم بتعطيله بدلاً من ذلك.",
+                    );
                   }
                   load();
                 }}
@@ -230,13 +284,20 @@ export default function AdminPanel() {
             {[...users]
               .sort(
                 (a, b) =>
-                  (b.progress?.filter((p: any) => p.status === "APPROVED").length || 0) -
-                  (a.progress?.filter((p: any) => p.status === "APPROVED").length || 0)
+                  (b.progress?.filter((p: any) => p.status === "APPROVED")
+                    .length || 0) -
+                  (a.progress?.filter((p: any) => p.status === "APPROVED")
+                    .length || 0),
               )
               .map((u, i) => {
-                const approved = u.progress?.filter((p: any) => p.status === "APPROVED") || [];
-                const books = approved.filter((p: any) => p.content.type === "BOOK").length;
-                const audio = approved.filter((p: any) => p.content.type === "AUDIO").length;
+                const approved =
+                  u.progress?.filter((p: any) => p.status === "APPROVED") || [];
+                const books = approved.filter(
+                  (p: any) => p.content.type === "BOOK",
+                ).length;
+                const audio = approved.filter(
+                  (p: any) => p.content.type === "AUDIO",
+                ).length;
                 if (approved.length === 0) return null;
                 return (
                   <div className="admin-row" key={u.id}>
@@ -245,7 +306,8 @@ export default function AdminPanel() {
                         {i + 1}. {u.name}
                       </b>
                       <small style={{ marginTop: "4px" }}>
-                        إجمالي الإنجازات: {approved.length} ( {books} كتب، {audio} صوتيات )
+                        إجمالي الإنجازات: {approved.length} ( {books} كتب،{" "}
+                        {audio} صوتيات )
                       </small>
                     </div>
                     <button onClick={() => setViewingUser(u)}>
@@ -254,8 +316,14 @@ export default function AdminPanel() {
                   </div>
                 );
               })}
-            {users.every((u) => (u.progress?.filter((p: any) => p.status === "APPROVED").length || 0) === 0) && (
-              <p style={{ color: "#7b837c" }}>لا يوجد إنجازات معتمدة حتى الآن.</p>
+            {users.every(
+              (u) =>
+                (u.progress?.filter((p: any) => p.status === "APPROVED")
+                  .length || 0) === 0,
+            ) && (
+              <p style={{ color: "#7b837c" }}>
+                لا يوجد إنجازات معتمدة حتى الآن.
+              </p>
             )}
           </div>
         </section>
@@ -330,7 +398,10 @@ export default function AdminPanel() {
             <option value="AUDIO">صوتيات</option>
           </select>
           {form.type === "BOOK" ? (
-            <p>يُستخرج عدد الصفحات تلقائيًا من PDF. للملفات الخاصة، ارفع نسخة مطابقة من لوحة الإنجاز بعد حفظ الكتاب.</p>
+            <p>
+              يُستخرج عدد الصفحات تلقائيًا من PDF. للملفات الخاصة، ارفع نسخة
+              مطابقة من لوحة الإنجاز بعد حفظ الكتاب.
+            </p>
           ) : (
             <input
               placeholder="المدة: 1:30:00 أو دقائق (تُستخرج تلقائيًا إن تركتها فارغة)"
@@ -343,7 +414,10 @@ export default function AdminPanel() {
             value={form.mediaUrl}
             onChange={(e) => setForm({ ...form, mediaUrl: e.target.value })}
           />
-          <div className="upload-group" style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+          <div
+            className="upload-group"
+            style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}
+          >
             <input
               placeholder="رابط صورة الغلاف (اختياري)"
               value={form.coverImageUrl}
@@ -353,7 +427,17 @@ export default function AdminPanel() {
               style={{ flex: 1, margin: 0 }}
             />
             <span style={{ fontSize: "0.9rem", color: "#666" }}>أو</span>
-            <label style={{ cursor: "pointer", padding: "0.6rem 1rem", background: "#f1f5f9", borderRadius: "8px", fontSize: "0.9rem", border: "1px solid #e2e8f0", whiteSpace: "nowrap" }}>
+            <label
+              style={{
+                cursor: "pointer",
+                padding: "0.6rem 1rem",
+                background: "#f1f5f9",
+                borderRadius: "8px",
+                fontSize: "0.9rem",
+                border: "1px solid #e2e8f0",
+                whiteSpace: "nowrap",
+              }}
+            >
               {isUploading ? "جاري الرفع..." : "رفع صورة"}
               <input
                 type="file"
@@ -375,7 +459,9 @@ export default function AdminPanel() {
                     if (data.url) {
                       setForm({ ...form, coverImageUrl: data.url });
                     } else {
-                      alert("فشل رفع الصورة: " + (data.error || "خطأ غير معروف"));
+                      alert(
+                        "فشل رفع الصورة: " + (data.error || "خطأ غير معروف"),
+                      );
                     }
                   } catch (err) {
                     alert("حدث خطأ أثناء الاتصال بالخادم لرفع الصورة.");
@@ -447,7 +533,7 @@ export default function AdminPanel() {
           ))}
         </section>
       </div>
-      
+
       {viewingUser && (
         <div className="modal-backdrop" onClick={() => setViewingUser(null)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
@@ -460,12 +546,18 @@ export default function AdminPanel() {
             ) : (
               <div style={{ marginTop: "1rem" }}>
                 {viewingUser.progress?.map((p: any) => (
-                  <div key={p.id} className="admin-row" style={{ marginBottom: "0.5rem" }}>
+                  <div
+                    key={p.id}
+                    className="admin-row"
+                    style={{ marginBottom: "0.5rem" }}
+                  >
                     <div>
                       <b>{p.content.title}</b>
                       <small>
                         {p.content.type === "BOOK" ? "كتاب" : "مادة صوتية"} ·{" "}
-                        {new Date(p.completedAt || p.requestedAt).toLocaleDateString("ar-SA")}
+                        {new Date(
+                          p.completedAt || p.requestedAt,
+                        ).toLocaleDateString("ar-SA")}
                       </small>
                     </div>
                   </div>
@@ -478,5 +570,3 @@ export default function AdminPanel() {
     </div>
   );
 }
-
-
