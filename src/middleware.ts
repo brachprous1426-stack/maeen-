@@ -7,6 +7,7 @@ export function middleware(req: NextRequest) {
   if (
     path === '/' ||
     path === '/login' ||
+    path === '/achievements' ||
     path.startsWith('/api/auth/login') ||
     path.startsWith('/_next') ||
     path.startsWith('/assets') ||

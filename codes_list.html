@@ -2,116 +2,312 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
+<title>تقرير رموز الدخول والصلاحيات - منصة ذاتي</title>
 <style>
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 40px; color: #333; }
-    h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
-    h2 { color: #2980b9; margin-top: 30px; }
-    h3 { color: #16a085; background: #e8f8f5; padding: 10px; border-radius: 5px; }
-    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px; }
-    th, td { border: 1px solid #bdc3c7; padding: 12px; text-align: right; }
-    th { background-color: #ecf0f1; color: #2c3e50; font-weight: bold; }
-    .badge { background: #f1c40f; color: #000; padding: 4px 10px; border-radius: 4px; font-family: monospace; font-weight: bold; font-size: 16px; letter-spacing: 2px;}
-    .supervisor-row { background-color: #d6eaf8; font-weight: bold; }
-    .page-break { page-break-after: always; }
+    @page {
+        size: A4;
+        margin: 15mm 15mm;
+    }
+    * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    body {
+        font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+        margin: 0;
+        padding: 10px;
+        color: #1e293b;
+        background: #ffffff;
+        font-size: 13.5px;
+        line-height: 1.5;
+    }
+    .header {
+        border-bottom: 2px solid #0f766e;
+        padding-bottom: 12px;
+        margin-bottom: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    h1 {
+        color: #0f766e;
+        margin: 0;
+        font-size: 24px;
+        font-weight: 800;
+    }
+    .date-badge {
+        font-size: 12px;
+        color: #64748b;
+        background: #f1f5f9;
+        padding: 4px 10px;
+        border-radius: 6px;
+    }
+    h2 {
+        color: #0f172a;
+        font-size: 17px;
+        margin: 20px 0 10px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .group-section {
+        margin-bottom: 22px;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+    .group-header {
+        background: #f0fdfa;
+        border: 1px solid #ccfbf1;
+        border-right: 4px solid #0d9488;
+        padding: 8px 12px;
+        border-radius: 6px 6px 0 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .group-title {
+        font-size: 15px;
+        font-weight: bold;
+        color: #0f766e;
+    }
+    .supervisor-info {
+        font-size: 13.5px;
+        color: #134e4a;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 10px;
+        font-size: 13px;
+        border: 1px solid #e2e8f0;
+        border-top: none;
+        border-radius: 0 0 6px 6px;
+        overflow: hidden;
+    }
+    th, td {
+        border-bottom: 1px solid #e2e8f0;
+        border-left: 1px solid #f1f5f9;
+        padding: 9px 14px;
+        text-align: right;
+    }
+    th:last-child, td:last-child {
+        border-left: none;
+    }
+    th {
+        background-color: #f8fafc;
+        color: #475569;
+        font-weight: 700;
+        font-size: 12.5px;
+    }
+    tr:nth-child(even) td {
+        background-color: #fafafa;
+    }
+    .badge {
+        background: #fef08a;
+        color: #854d0e;
+        border: 1px solid #fde047;
+        padding: 3px 10px;
+        border-radius: 5px;
+        font-family: 'Consolas', 'Courier New', monospace;
+        font-weight: 800;
+        font-size: 14.5px;
+        letter-spacing: 2px;
+        display: inline-block;
+        direction: ltr;
+    }
+    .badge-admin {
+        background: #fed7aa;
+        color: #9a3412;
+        border-color: #fdba74;
+    }
+    .badge-sup {
+        background: #bae6fd;
+        color: #0369a1;
+        border-color: #7dd3fc;
+    }
+    .admin-table {
+        border-radius: 6px;
+        border-top: 1px solid #e2e8f0;
+    }
+    .page-break {
+        page-break-after: always;
+        break-after: page;
+    }
+    .footer {
+        margin-top: 25px;
+        text-align: center;
+        font-size: 11px;
+        color: #94a3b8;
+        border-top: 1px solid #f1f5f9;
+        padding-top: 10px;
+    }
 </style>
 </head>
 <body>
-    <h1>📋 تقرير رموز الدخول والصلاحيات</h1>
+    <div class="header">
+        <h1>📋 تقرير رموز الدخول والصلاحيات — منصة ذاتي</h1>
+        <div class="date-badge">سري وخاص بالإدارة</div>
+    </div>
     
-    <h2>👑 الإدارة العليا</h2>
-    <table>
-        <tr>
-            <th width="30%">الاسم</th>
-            <th width="20%">المنصب</th>
-            <th width="30%">الصلاحيات</th>
-            <th width="20%">رمز الدخول</th>
-        </tr>
-        <tr>
-            <td><strong>سلمان الشبانات</strong></td>
-            <td>المشرف العام</td>
-            <td>متابعة سير البرنامج بالكامل</td>
-            <td style="text-align: center;"><span class="badge">839104</span></td>
-        </tr>
+    <h2>👑 الإدارة العامة</h2>
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th width="30%">الاسم</th>
+                <th width="25%">المنصب / الصفة</th>
+                <th width="25%">الصلاحية</th>
+                <th width="20%" style="text-align: center;">رمز الدخول</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>سلمان الشبانات</strong></td>
+                <td>المشرف العام</td>
+                <td>إشراف كامل على البرنامج</td>
+                <td style="text-align: center;"><span class="badge badge-admin">839104</span></td>
+            </tr>
+            <tr>
+                <td><strong>مدير المكتبة</strong></td>
+                <td>حساب النظام</td>
+                <td>إدارة المحتوى والمستخدمين</td>
+                <td style="text-align: center;"><span class="badge badge-admin">ADM123</span></td>
+            </tr>
+        </tbody>
     </table>
 
-    <h2 style="margin-top: 40px;">👨‍🏫 توزيع المجموعات والطلاب</h2>
+    <h2 style="margin-top: 28px;">👨‍🏫 توزيع المجموعات والمشرفين والطلاب</h2>
     
-    <h3>1️⃣ مجموعة: العطاء</h3>
-    <table>
-        <tr class="supervisor-row">
-            <td colspan="2">المشرف: إبراهيم الغريبي</td>
-            <td colspan="2" style="text-align: center;">رمز الدخول: <span class="badge">392018</span></td>
-        </tr>
-        <tr><th colspan="2">اسم الطالب</th><th colspan="2">رمز الدخول</th></tr>
-        <tr><td colspan="2">بدر الباز</td><td colspan="2" style="text-align: center;">193847</td></tr>
-        <tr><td colspan="2">عبدالله الفضلي</td><td colspan="2" style="text-align: center;">847291</td></tr>
-        <tr><td colspan="2">عمر العقيلي</td><td colspan="2" style="text-align: center;">293845</td></tr>
-        <tr><td colspan="2">محمد ال عبدالله</td><td colspan="2" style="text-align: center;">581023</td></tr>
-        <tr><td colspan="2">محمد الهويمل</td><td colspan="2" style="text-align: center;">682910</td></tr>
-        <tr><td colspan="2">سعد الصفار</td><td colspan="2" style="text-align: center;">401928</td></tr>
-        <tr><td colspan="2">عمر العيدان</td><td colspan="2" style="text-align: center;">748291</td></tr>
-    </table>
+    <!-- مجموعة 1 -->
+    <div class="group-section">
+        <div class="group-header">
+            <span class="group-title">1️⃣ مجموعة: العطاء</span>
+            <span class="supervisor-info">المشرف: <strong>إبراهيم الغريبي</strong> | رمز المشرف: <span class="badge badge-sup">392018</span></span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="10%">#</th>
+                    <th width="60%">اسم الطالب</th>
+                    <th width="30%" style="text-align: center;">رمز الدخول</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>بدر الباز</td><td style="text-align: center;"><span class="badge">193847</span></td></tr>
+                <tr><td>2</td><td>عبدالله الفضلي</td><td style="text-align: center;"><span class="badge">847291</span></td></tr>
+                <tr><td>3</td><td>عمر العقيلي</td><td style="text-align: center;"><span class="badge">293845</span></td></tr>
+                <tr><td>4</td><td>محمد ال عبدالله</td><td style="text-align: center;"><span class="badge">581023</span></td></tr>
+                <tr><td>5</td><td>محمد الهويمل</td><td style="text-align: center;"><span class="badge">682910</span></td></tr>
+                <tr><td>6</td><td>سعد الصفار</td><td style="text-align: center;"><span class="badge">401928</span></td></tr>
+                <tr><td>7</td><td>عمر العيدان</td><td style="text-align: center;"><span class="badge">748291</span></td></tr>
+            </tbody>
+        </table>
+    </div>
 
-    <h3>2️⃣ مجموعة: العزم</h3>
-    <table>
-        <tr class="supervisor-row">
-            <td colspan="2">المشرف: ياسر الجوهر</td>
-            <td colspan="2" style="text-align: center;">رمز الدخول: <span class="badge">582910</span></td>
-        </tr>
-        <tr><th colspan="2">اسم الطالب</th><th colspan="2">رمز الدخول</th></tr>
-        <tr><td colspan="2">اسامة المبدل</td><td colspan="2" style="text-align: center;">104928</td></tr>
-        <tr><td colspan="2">عبدالله يعرب العوشن</td><td colspan="2" style="text-align: center;">948102</td></tr>
-        <tr><td colspan="2">عبدالرحمن العبيد</td><td colspan="2" style="text-align: center;">384910</td></tr>
-        <tr><td colspan="2">محمد العيد</td><td colspan="2" style="text-align: center;">849201</td></tr>
-        <tr><td colspan="2">عبدالله آل عبدالله</td><td colspan="2" style="text-align: center;">203948</td></tr>
-        <tr><td colspan="2">محمد الغنام</td><td colspan="2" style="text-align: center;">673829</td></tr>
-    </table>
-
-    <h3>3️⃣ مجموعة: القيم</h3>
-    <table>
-        <tr class="supervisor-row">
-            <td colspan="2">المشرف: إبراهيم الدوسري</td>
-            <td colspan="2" style="text-align: center;">رمز الدخول: <span class="badge">492018</span></td>
-        </tr>
-        <tr><th colspan="2">اسم الطالب</th><th colspan="2">رمز الدخول</th></tr>
-        <tr><td colspan="2">عبدالعزيز آل حسين</td><td colspan="2" style="text-align: center;">748192</td></tr>
-        <tr><td colspan="2">فهد العسكر</td><td colspan="2" style="text-align: center;">283910</td></tr>
-        <tr><td colspan="2">عبدالرحمن الشهري</td><td colspan="2" style="text-align: center;">682019</td></tr>
-        <tr><td colspan="2">عبدالله الصفار</td><td colspan="2" style="text-align: center;">192837</td></tr>
-        <tr><td colspan="2">عبدالله آل الشيخ</td><td colspan="2" style="text-align: center;">948271</td></tr>
-        <tr><td colspan="2">محمد بن المنيع</td><td colspan="2" style="text-align: center;">384710</td></tr>
-    </table>
+    <!-- مجموعة 2 -->
+    <div class="group-section">
+        <div class="group-header">
+            <span class="group-title">2️⃣ مجموعة: العزم</span>
+            <span class="supervisor-info">المشرف: <strong>ياسر الجوهر</strong> | رمز المشرف: <span class="badge badge-sup">582910</span></span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="10%">#</th>
+                    <th width="60%">اسم الطالب</th>
+                    <th width="30%" style="text-align: center;">رمز الدخول</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>اسامة المبدل</td><td style="text-align: center;"><span class="badge">104928</span></td></tr>
+                <tr><td>2</td><td>عبدالله يعرب العوشن</td><td style="text-align: center;"><span class="badge">948102</span></td></tr>
+                <tr><td>3</td><td>عبدالرحمن العبيد</td><td style="text-align: center;"><span class="badge">384910</span></td></tr>
+                <tr><td>4</td><td>محمد العيد</td><td style="text-align: center;"><span class="badge">849201</span></td></tr>
+                <tr><td>5</td><td>عبدالله آل عبدالله</td><td style="text-align: center;"><span class="badge">203948</span></td></tr>
+                <tr><td>6</td><td>محمد الغنام</td><td style="text-align: center;"><span class="badge">673829</span></td></tr>
+            </tbody>
+        </table>
+    </div>
 
     <div class="page-break"></div>
 
-    <h3>4️⃣ مجموعة: الضياء</h3>
-    <table>
-        <tr class="supervisor-row">
-            <td colspan="2">المشرف: مشعل الغنام</td>
-            <td colspan="2" style="text-align: center;">رمز الدخول: <span class="badge">281930</span></td>
-        </tr>
-        <tr><th colspan="2">اسم الطالب</th><th colspan="2">رمز الدخول</th></tr>
-        <tr><td colspan="2">عبدالعزيز القشيش</td><td colspan="2" style="text-align: center;">582930</td></tr>
-        <tr><td colspan="2">عبدالعزيز الجنيدل</td><td colspan="2" style="text-align: center;">839201</td></tr>
-        <tr><td colspan="2">راشد الدباس</td><td colspan="2" style="text-align: center;">102938</td></tr>
-        <tr><td colspan="2">عبدالعزيز الشهري</td><td colspan="2" style="text-align: center;">482910</td></tr>
-        <tr><td colspan="2">سعيد الصفار</td><td colspan="2" style="text-align: center;">672819</td></tr>
-        <tr><td colspan="2">بتال العوشن</td><td colspan="2" style="text-align: center;">384920</td></tr>
-    </table>
+    <!-- مجموعة 3 -->
+    <div class="group-section">
+        <div class="group-header">
+            <span class="group-title">3️⃣ مجموعة: القيم</span>
+            <span class="supervisor-info">المشرف: <strong>إبراهيم الدوسري</strong> | رمز المشرف: <span class="badge badge-sup">492018</span></span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="10%">#</th>
+                    <th width="60%">اسم الطالب</th>
+                    <th width="30%" style="text-align: center;">رمز الدخول</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>عبدالعزيز آل حسين</td><td style="text-align: center;"><span class="badge">748192</span></td></tr>
+                <tr><td>2</td><td>فهد العسكر</td><td style="text-align: center;"><span class="badge">283910</span></td></tr>
+                <tr><td>3</td><td>عبدالرحمن الشهري</td><td style="text-align: center;"><span class="badge">682019</span></td></tr>
+                <tr><td>4</td><td>عبدالله الصفار</td><td style="text-align: center;"><span class="badge">192837</span></td></tr>
+                <tr><td>5</td><td>عبدالله آل الشيخ</td><td style="text-align: center;"><span class="badge">948271</span></td></tr>
+                <tr><td>6</td><td>محمد بن المنيع</td><td style="text-align: center;"><span class="badge">384710</span></td></tr>
+            </tbody>
+        </table>
+    </div>
 
-    <h3>5️⃣ مجموعة: النور</h3>
-    <table>
-        <tr class="supervisor-row">
-            <td colspan="2">المشرف: عبدالرحمن العثمان</td>
-            <td colspan="2" style="text-align: center;">رمز الدخول: <span class="badge">748201</span></td>
-        </tr>
-        <tr><th colspan="2">اسم الطالب</th><th colspan="2">رمز الدخول</th></tr>
-        <tr><td colspan="2">ريان الخميس</td><td colspan="2" style="text-align: center;">192038</td></tr>
-        <tr><td colspan="2">فراس الجسار</td><td colspan="2" style="text-align: center;">583920</td></tr>
-        <tr><td colspan="2">صالح آل عبدالسلام</td><td colspan="2" style="text-align: center;">829103</td></tr>
-        <tr><td colspan="2">حمد آل عبدالله</td><td colspan="2" style="text-align: center;">382910</td></tr>
-        <tr><td colspan="2">عبدالملك النصار</td><td colspan="2" style="text-align: center;">481920</td></tr>
-        <tr><td colspan="2">ريان الخميس</td><td colspan="2" style="text-align: center;">682930</td></tr>
-    </table>
+    <!-- مجموعة 4 -->
+    <div class="group-section">
+        <div class="group-header">
+            <span class="group-title">4️⃣ مجموعة: الضياء</span>
+            <span class="supervisor-info">المشرف: <strong>مشعل الغنام</strong> | رمز المشرف: <span class="badge badge-sup">281930</span></span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="10%">#</th>
+                    <th width="60%">اسم الطالب</th>
+                    <th width="30%" style="text-align: center;">رمز الدخول</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>عبدالعزيز القشيش</td><td style="text-align: center;"><span class="badge">582930</span></td></tr>
+                <tr><td>2</td><td>عبدالعزيز الجنيدل</td><td style="text-align: center;"><span class="badge">839201</span></td></tr>
+                <tr><td>3</td><td>راشد الدباس</td><td style="text-align: center;"><span class="badge">102938</span></td></tr>
+                <tr><td>4</td><td>عبدالعزيز الشهري</td><td style="text-align: center;"><span class="badge">482910</span></td></tr>
+                <tr><td>5</td><td>سعيد الصفار</td><td style="text-align: center;"><span class="badge">672819</span></td></tr>
+                <tr><td>6</td><td>بتال العوشن</td><td style="text-align: center;"><span class="badge">384920</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- مجموعة 5 -->
+    <div class="group-section">
+        <div class="group-header">
+            <span class="group-title">5️⃣ مجموعة: النور</span>
+            <span class="supervisor-info">المشرف: <strong>عبدالرحمن العثمان</strong> | رمز المشرف: <span class="badge badge-sup">748201</span></span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="10%">#</th>
+                    <th width="60%">اسم الطالب</th>
+                    <th width="30%" style="text-align: center;">رمز الدخول</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>ريان الخميس</td><td style="text-align: center;"><span class="badge">192038</span></td></tr>
+                <tr><td>2</td><td>فراس الجسار</td><td style="text-align: center;"><span class="badge">583920</span></td></tr>
+                <tr><td>3</td><td>صالح آل عبدالسلام</td><td style="text-align: center;"><span class="badge">829103</span></td></tr>
+                <tr><td>4</td><td>حمد آل عبدالله</td><td style="text-align: center;"><span class="badge">382910</span></td></tr>
+                <tr><td>5</td><td>عبدالملك النصار</td><td style="text-align: center;"><span class="badge">481920</span></td></tr>
+                <tr><td>6</td><td>ريان الخميس (الثاني)</td><td style="text-align: center;"><span class="badge">682930</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">
+        برنامج ذاتي التربوي — تقرير رموز الدخول السرية
+    </div>
 </body>
 </html>
