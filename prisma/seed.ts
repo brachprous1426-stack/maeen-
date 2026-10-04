@@ -36,9 +36,9 @@ async function main() {
   }
 
   const items = [
-    ...levelThreeBooks.map(book => ({title: book.title, author: book.author || '', categoryId: categories['المستوى الثالث'], type: ContentType.BOOK, mediaUrl: book.mediaUrl, description: ''})),
-    ...levelTwoBooks.map(book => ({title: book.title, author: book.author || '', categoryId: categories['المستوى الثاني'], type: ContentType.BOOK, mediaUrl: book.mediaUrl, description: ''})),
-    ...levelOneBooks.map(book => ({title: book.title, author: book.author || '', categoryId: categories['المستوى الأول'], type: ContentType.BOOK, mediaUrl: book.mediaUrl, description: ''})),
+    ...levelThreeBooks.map(book => ({title: book.title, author: book.author || '', categoryId: categories['المستوى الثالث'], type: ContentType.BOOK, mediaUrl: book.mediaUrl, coverImageUrl: (book as any).coverImageUrl, description: ''})),
+    ...levelTwoBooks.map(book => ({title: book.title, author: book.author || '', categoryId: categories['المستوى الثاني'], type: ContentType.BOOK, mediaUrl: book.mediaUrl, coverImageUrl: (book as any).coverImageUrl, description: ''})),
+    ...levelOneBooks.map(book => ({title: book.title, author: book.author || '', categoryId: categories['المستوى الأول'], type: ContentType.BOOK, mediaUrl: book.mediaUrl, coverImageUrl: (book as any).coverImageUrl, description: ''})),
     // مواد المربين
     { title: "سلسلة صناعة المربي", author: "أحمد السيد", duration: "8 مقاطع", categoryId: categories['مواد المربين'], type: ContentType.AUDIO, mediaUrl: 'https://www.youtube.com/watch?v=placeholder', description: '' },
     { title: "محاضرة ما لا يسع المربي جهله", author: "محمد الدويش", duration: "محاضرة واحدة", categoryId: categories['مواد المربين'], type: ContentType.AUDIO, mediaUrl: 'https://www.youtube.com/watch?v=slar2SEFAK4', coverImageUrl: 'https://i.ytimg.com/vi/slar2SEFAK4/hqdefault.jpg', description: '' },
@@ -88,12 +88,21 @@ async function main() {
       ? `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600"><rect width="400" height="600" fill="%23182f2b"/><text x="200" y="300" fill="%23f8f2e8" text-anchor="middle" font-size="28" font-family="sans-serif" style="text-wrap:balance" width="300">${encodeURIComponent(item.title)}</text><text x="200" y="350" fill="%23d7a96b" text-anchor="middle" font-size="20" font-family="sans-serif">${encodeURIComponent(item.author)}</text></svg>`
       : null;
 
+    const finalCover = (item as any).coverImageUrl || coverSvg;
+
     const exists = await prisma.content.findFirst({ where: { title: item.title, categoryId: item.categoryId, type: item.type } });
     if (!exists) {
       await prisma.content.create({
         data: {
           ...item,
-          coverImageUrl: coverSvg
+          coverImageUrl: finalCover
+        }
+      });
+    } else {
+      await prisma.content.update({
+        where: { id: exists.id },
+        data: {
+          coverImageUrl: finalCover
         }
       });
     }

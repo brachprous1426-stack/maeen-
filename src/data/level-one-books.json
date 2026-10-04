@@ -105,31 +105,36 @@
     "id": "1H6WQFUDQs9ezpLybEIZ6j0NMvkE7HSz9",
     "title": "صُوَى وكُوَى",
     "mediaUrl": "https://drive.google.com/file/d/1H6WQFUDQs9ezpLybEIZ6j0NMvkE7HSz9/view?usp=drivesdk",
-    "author": "محمد بن سليمان المهنا"
+    "author": "محمد بن سليمان المهنا",
+    "coverImageUrl": "/books/suwa.png"
   },
   {
     "id": "1F9EdENEx24KWRD9nmNpv1MqZl4v4RbTy",
     "title": "أول مرة أصلي وكان للصلاة طعم آخر",
     "mediaUrl": "https://drive.google.com/file/d/1F9EdENEx24KWRD9nmNpv1MqZl4v4RbTy/view?usp=drivesdk",
-    "author": "خالد أبو شادي"
+    "author": "خالد أبو شادي",
+    "coverImageUrl": "/books/awwal.png"
   },
   {
     "id": "1bRNGD9-YCY4Pm7U-Lnmx4fMo4f_l44PA",
     "title": "مفاتيح تدبر القرآن والنجاح في الحياة: 10 مفاتيح لتحقيق التدبر الأمثل",
     "mediaUrl": "https://drive.google.com/file/d/1bRNGD9-YCY4Pm7U-Lnmx4fMo4f_l44PA/view?usp=drivesdk",
-    "author": "د. خالد بن عبد الكريم اللاحم"
+    "author": "د. خالد بن عبد الكريم اللاحم",
+    "coverImageUrl": "/books/tadabbur.png"
   },
   {
     "id": "1Rs3U5bPqCApGMwm_hP5NT7C_8Pfj01HO",
     "title": "في ظلال السيرة النبوية",
     "mediaUrl": "https://drive.google.com/file/d/1Rs3U5bPqCApGMwm_hP5NT7C_8Pfj01HO/view?usp=drivesdk",
-    "author": "مشعل بن عبد العزيز الفلاحي"
+    "author": "مشعل بن عبد العزيز الفلاحي",
+    "coverImageUrl": "/books/seerah.png"
   },
   {
     "id": "1j72y7znJX-OA31CQ-AXeuzNoDyA2rQph",
     "title": "قصة حياة عمر",
     "mediaUrl": "https://drive.google.com/file/d/1j72y7znJX-OA31CQ-AXeuzNoDyA2rQph/view?usp=drivesdk",
-    "author": "علي الطنطاوي"
+    "author": "علي الطنطاوي",
+    "coverImageUrl": "/books/omar.png"
   },
   {
     "id": "1KDl2sawTG1wD87vIldf9Bc6LSyxxfdJJ",
