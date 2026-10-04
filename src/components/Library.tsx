@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 type Props = {
@@ -277,7 +277,7 @@ export default function Library({ user, fixedType, initialData }: Props) {
               ? "استمع لما يترك أثراً"
               : "اقرأ واستمع"}
         </h1>
-        <p>مختارات هادئة في مكان واحد.</p>
+
       </section>
       <div className="toolbar">
         <input
