@@ -13,25 +13,31 @@ export default async function LandingPage() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <div className="brand-mark">م</div>
-            <div className="brand">مَعين</div>
+            <div className="brand">منصة معين</div>
           </div>
           <div style={{ width: '1px', height: '24px', background: 'var(--line)' }}></div>
           <img src="/bader-logo.svg" alt="فريق بادر" style={{ height: '32px', objectFit: 'contain' }} title="مبادرة من فريق بادر" />
         </div>
         <nav>
           {user ? (
-            <Link href="/books" className="primary">المكتبة</Link>
+            <>
+              <Link href="/books" className="primary">المكتبة</Link>
+              <Link href="/achievements" className="secondary" style={{ marginLeft: '10px' }}>لوحة الإنجاز</Link>
+            </>
           ) : (
-            <Link href="/login?redirect=/books" className="primary">دخول للمكتبة</Link>
+            <>
+              <Link href="/login?redirect=/books" className="primary">دخول للمكتبة</Link>
+              <Link href="/achievements" className="secondary" style={{ marginLeft: '10px' }}>لوحة الإنجاز</Link>
+            </>
           )}
         </nav>
       </header>
 
       {/* Hero Section */}
       <div className="hero">
-        <div className="eyebrow">منصتك المعرفية</div>
-        <h1>وجهتك الأولى <br /> للمعرفة والإثراء الثقافي</h1>
-        <p>مَعين توفر بيئة قراءة تفاعلية وخاصة، مصممة بعناية للارتقاء بتجربتك المعرفية وتسهيل وصولك لأمهات الكتب والمصادر القيمة.</p>
+        <div className="eyebrow">منصتك المعرفية والإيمانية</div>
+        <h1>وجهتك الأولى <br /> للزاد العلمي والإيماني والدعوي</h1>
+        <p>منصة معين هي مورد لمن أراد الإرتواء من الزاد العلمي والإيماني والدعوي، توفر بيئة قراءة تفاعلية وخاصة للارتقاء بتجربتك وتسهيل وصولك لأمهات الكتب والمصادر القيمة.</p>
         
         <div style={{ marginTop: '24px' }}>
           {user ? (
@@ -50,7 +56,7 @@ export default async function LandingPage() {
       <div className="panel" style={{ margin: '40px 0' }}>
         <h2 style={{ fontSize: '24px', marginBottom: '16px' }}>نبذة عن المنصة</h2>
         <p style={{ color: 'var(--muted)', lineHeight: '1.8', fontSize: '15px', marginBottom: '20px' }}>
-          <strong>مَعين</strong> هي منصة قراءة إلكترونية متطورة تهدف إلى إعادة إحياء شغف المطالعة وتسهيل الوصول إلى المحتوى العربي الأصيل. 
+          <strong>منصة معين</strong> هي مورد لمن أراد الإرتواء من الزاد العلمي والإيماني والدعوي، وتهدف إلى إعادة إحياء شغف المطالعة وتسهيل الوصول إلى المحتوى العربي الأصيل. 
           نحن نؤمن بأن القراءة ليست مجرد هواية، بل هي أسلوب حياة وأداة أساسية لتطوير الذات والمجتمعات. لذلك، صممنا هذه المنصة لتكون واحتك الخاصة التي تجد فيها المعرفة المنظمة، وأدوات المتابعة المتقدمة التي تساعدك على الاستمرارية.
         </p>
 
@@ -64,7 +70,7 @@ export default async function LandingPage() {
 
       {/* Importance Section */}
       <div style={{ margin: '60px 0 40px' }}>
-        <h2 style={{ fontSize: '24px', marginBottom: '24px' }}>لماذا مَعين؟</h2>
+        <h2 style={{ fontSize: '24px', marginBottom: '24px' }}>لماذا منصة معين؟</h2>
         
         <div className="grid">
           {/* Feature 1 */}
@@ -109,10 +115,10 @@ export default async function LandingPage() {
       <footer style={{ textAlign: 'center', padding: '40px 0 0', borderTop: '1px solid var(--line)', color: 'var(--muted)', fontSize: '14px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginBottom: '16px' }}>
           <div className="brand-mark" style={{ width: "28px", height: "28px", fontSize: "14px" }}>م</div>
-          <strong style={{ color: 'var(--pine)', fontSize: '16px' }}>مَعين</strong>
+          <strong style={{ color: 'var(--pine)', fontSize: '16px' }}>منصة معين</strong>
         </div>
-        <p style={{ marginBottom: '16px' }}>منصتك الرائدة لتعزيز ثقافة القراءة وبناء مجتمع معرفي متميز.</p>
-        <p>&copy; {new Date().getFullYear()} مَعين. جميع الحقوق محفوظة.</p>
+        <p style={{ marginBottom: '16px' }}>موردك الدائم للزاد العلمي والإيماني والدعوي.</p>
+        <p>&copy; {new Date().getFullYear()} منصة معين. جميع الحقوق محفوظة.</p>
       </footer>
     </div>
   );

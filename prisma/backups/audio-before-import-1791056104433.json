@@ -1,0 +1,28 @@
+[
+  {
+    "id": "cmupvy7ry002wmnkow40n766m",
+    "title": "المدخل إلى علم الفقه",
+    "description": "",
+    "type": "AUDIO",
+    "mediaUrl": "https://www.youtube.com/watch?v=placeholder",
+    "coverImageUrl": null,
+    "createdAt": "2026-10-01T18:46:39.070Z",
+    "categoryId": "cmupvy04m0005mnkoojkly1vu",
+    "author": "عامر بهجت",
+    "duration": "20 مقطع",
+    "pageCount": null
+  },
+  {
+    "id": "cmupvy7kj002umnkopm02pzh7",
+    "title": "محاضرة ما لا يسع المربي جهله",
+    "description": "",
+    "type": "AUDIO",
+    "mediaUrl": "https://www.youtube.com/watch?v=placeholder",
+    "coverImageUrl": null,
+    "createdAt": "2026-10-01T18:46:38.804Z",
+    "categoryId": "cmupvxykw0001mnko4cwrgy34",
+    "author": "محمد الدويش",
+    "duration": "محاضرة واحدة",
+    "pageCount": null
+  }
+]

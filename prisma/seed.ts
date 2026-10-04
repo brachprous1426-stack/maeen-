@@ -1,6 +1,7 @@
 import levelThreeBooks from '../src/data/level-three-books.json';
 import levelTwoBooks from '../src/data/level-two-books.json';
 import levelOneBooks from '../src/data/level-one-books.json';
+import audioLinks from './audio-links.json';
 import { PrismaClient, Role, ContentType } from '@prisma/client';
 const prisma = new PrismaClient();
 
@@ -20,7 +21,8 @@ async function main() {
     'المستوى الثاني',
     'المستوى الثالث',
     'المستوى الرابع',
-    'المستوى الخامس'
+    'المستوى الخامس',
+    'صوتيات'
   ];
 
   const categories: Record<string, string> = {};
@@ -39,7 +41,7 @@ async function main() {
     ...levelOneBooks.map(book => ({title: book.title, author: book.author || '', categoryId: categories['المستوى الأول'], type: ContentType.BOOK, mediaUrl: book.mediaUrl, description: ''})),
     // مواد المربين
     { title: "سلسلة صناعة المربي", author: "أحمد السيد", duration: "8 مقاطع", categoryId: categories['مواد المربين'], type: ContentType.AUDIO, mediaUrl: 'https://www.youtube.com/watch?v=placeholder', description: '' },
-    { title: "محاضرة ما لا يسع المربي جهله", author: "محمد الدويش", duration: "محاضرة واحدة", categoryId: categories['مواد المربين'], type: ContentType.AUDIO, mediaUrl: 'https://www.youtube.com/watch?v=placeholder', description: '' },
+    { title: "محاضرة ما لا يسع المربي جهله", author: "محمد الدويش", duration: "محاضرة واحدة", categoryId: categories['مواد المربين'], type: ContentType.AUDIO, mediaUrl: 'https://www.youtube.com/watch?v=slar2SEFAK4', coverImageUrl: 'https://i.ytimg.com/vi/slar2SEFAK4/hqdefault.jpg', description: '' },
 
     // المستوى الأول
     { title: "سلسلة أبجديات الثقافة الإسلامية: النبي ﷺ في مكة", author: "أحمد السيد", duration: "7 مقاطع", categoryId: categories['المستوى الأول'], type: ContentType.AUDIO, mediaUrl: 'https://www.youtube.com/watch?v=placeholder', description: '' },
@@ -64,7 +66,7 @@ async function main() {
     { title: "محاضرة المدخل إلى علوم القرآن والتفسير", author: "أحمد السيد", duration: "ساعة وثلث", categoryId: categories['المستوى الرابع'], type: ContentType.AUDIO, mediaUrl: 'https://www.youtube.com/watch?v=placeholder', description: '' },
     { title: "محاضرة المدخل إلى علم العقيدة", author: "أحمد السيد", duration: "ساعة وثلث", categoryId: categories['المستوى الرابع'], type: ContentType.AUDIO, mediaUrl: 'https://www.youtube.com/watch?v=placeholder', description: '' },
     { title: "محاضرة المدخل إلى السيرة النبوية", author: "أحمد السيد", duration: "ساعة ونصف", categoryId: categories['المستوى الرابع'], type: ContentType.AUDIO, mediaUrl: 'https://www.youtube.com/watch?v=placeholder', description: '' },
-    { title: "المدخل إلى علم الفقه", author: "عامر بهجت", duration: "20 مقطع", categoryId: categories['المستوى الرابع'], type: ContentType.AUDIO, mediaUrl: 'https://www.youtube.com/watch?v=placeholder', description: '' },
+    { title: "المدخل إلى علم الفقه", author: "عامر بهجت", duration: "20 مقطع", categoryId: categories['المستوى الرابع'], type: ContentType.AUDIO, mediaUrl: 'https://www.youtube.com/watch?v=OQfMcVwehII', coverImageUrl: 'https://i.ytimg.com/vi/OQfMcVwehII/hqdefault.jpg', description: '' },
     { title: "محاضرة المدخل إلى علم التاريخ الإسلامي", author: "أحمد السيد", duration: "ساعة تقريباً", categoryId: categories['المستوى الرابع'], type: ContentType.AUDIO, mediaUrl: 'https://www.youtube.com/watch?v=placeholder', description: '' },
     { title: "محاضرة مقدمة أصولية لفهم النصوص الشرعية", author: "أحمد السيد", duration: "50 دقيقة", categoryId: categories['المستوى الرابع'], type: ContentType.AUDIO, mediaUrl: 'https://www.youtube.com/watch?v=placeholder', description: '' },
     { title: "سلسلة شرح البيقونية", author: "أحمد السيد", duration: "6 مقاطع", categoryId: categories['المستوى الرابع'], type: ContentType.AUDIO, mediaUrl: 'https://www.youtube.com/watch?v=placeholder', description: '' },
@@ -95,6 +97,25 @@ async function main() {
         }
       });
     }
+  }
+
+  // Seed audio materials from audio-links.json
+  const audioCategory = categories['صوتيات'];
+  for (const row of audioLinks) {
+    const id = 'drive-audio-' + row.sourceId;
+    const data = { mediaUrl: row.mediaUrl, coverImageUrl: row.coverImageUrl };
+    await prisma.content.upsert({
+      where: { id },
+      update: data,
+      create: {
+        id,
+        title: row.title,
+        description: '',
+        type: ContentType.AUDIO,
+        categoryId: audioCategory,
+        ...data
+      }
+    });
   }
 
   console.log('Seed completed.');

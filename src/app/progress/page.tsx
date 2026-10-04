@@ -14,7 +14,7 @@ export default async function Progress() {
 
   return (
     <div className="shell">
-      <header><a href="/books" className="brand">مَعين</a><a href="/books">العودة للمكتبة</a></header>
+      <header><a href="/books" className="brand">منصة البرامج الذاتيه</a><nav><a href="/achievements">لوحة الإنجاز</a><a href="/books">العودة للمكتبة</a></nav></header>
       <section className="hero compact">
         <p className="eyebrow">مساحتي</p>
         <h1>إنجازي</h1>

@@ -83,11 +83,14 @@ export default function AdminPanel() {
     load();
   }
   async function saveContent() {
-    await fetch("/api/content", {
+    const response = await fetch("/api/content", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(form),
     });
+    const result = await response.json();
+    if (!response.ok) { alert(result.error || 'تعذر حفظ المادة'); return; }
+    if ((result.type === 'BOOK' && !result.pageCount) || (result.type === 'AUDIO' && !result.duration)) alert('حُفظت المادة وتحتاج بيانات المصدر. افتح لوحة الإنجاز لاستكمال عدد الصفحات أو المدة.');
     setForm({
       ...form,
       title: "",
@@ -107,9 +110,9 @@ export default function AdminPanel() {
     <div className="shell">
       <header>
         <a href="/" className="brand">
-          مَعين · الإدارة
+          منصة البرامج الذاتيه · الإدارة
         </a>
-        <a href="/books">العودة للمكتبة</a>
+        <nav><a href="/achievements">لوحة الإنجاز</a><a href="/books">العودة للمكتبة</a></nav>
       </header>
       <section className="hero compact">
         <p className="eyebrow">لوحة الإدارة</p>
@@ -327,15 +330,10 @@ export default function AdminPanel() {
             <option value="AUDIO">صوتيات</option>
           </select>
           {form.type === "BOOK" ? (
-            <input
-              type="number"
-              placeholder="عدد الصفحات"
-              value={form.pageCount}
-              onChange={(e) => setForm({ ...form, pageCount: e.target.value })}
-            />
+            <p>يُستخرج عدد الصفحات تلقائيًا من PDF. للملفات الخاصة، ارفع نسخة مطابقة من لوحة الإنجاز بعد حفظ الكتاب.</p>
           ) : (
             <input
-              placeholder="المدة (مثال: ساعتان، 6 مقاطع)"
+              placeholder="المدة: 1:30:00 أو دقائق (تُستخرج تلقائيًا إن تركتها فارغة)"
               value={form.duration}
               onChange={(e) => setForm({ ...form, duration: e.target.value })}
             />

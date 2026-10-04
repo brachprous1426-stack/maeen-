@@ -1,6 +1,7 @@
 node_modules/
 .next/
 .next-production-check/
+.next-achievement-check/
 .next-review-dev/
 .npm-cache/
 .report-qa/

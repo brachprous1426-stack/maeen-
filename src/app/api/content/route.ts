@@ -3,6 +3,20 @@ import { prisma, requireUser, requireAdmin } from "@/lib/auth";
 
 import { getLibraryData } from "@/lib/library-data";
 import { getYouTubeThumbnail } from "@/lib/youtube";
+import { extractMediaMetadata } from '@/lib/media-metadata';
+import { durationSeconds } from '@/lib/achievement-totals';
+import { revalidatePath } from 'next/cache';
+
+// Keep verified measurements when only the title/category changes; refresh for a new source.
+async function measurements(d: { type: string; mediaUrl: string; duration?: string }, existing?: { type: string; mediaUrl: string; pageCount: number | null; duration: string | null }) {
+  const sameSource = existing?.type === d.type && existing.mediaUrl === d.mediaUrl;
+  if (d.type === 'BOOK' && sameSource && existing.pageCount) return { pageCount: existing.pageCount, duration: null };
+  if (d.type === 'AUDIO' && d.duration && durationSeconds(d.duration) !== null) return { pageCount: null, duration: d.duration };
+  if (d.type === 'AUDIO' && sameSource && durationSeconds(existing.duration) !== null) return { pageCount: null, duration: existing.duration };
+  try { return { pageCount: null, duration: null, ...await extractMediaMetadata(d) }; }
+  catch { return { pageCount: null, duration: null }; }
+}
+export const maxDuration = 60;
 
 export async function GET(req: Request) {
   try {
@@ -29,6 +43,7 @@ export async function POST(req: Request) {
     const d = await req.json();
     const url = new URL(d.mediaUrl);
     if (!["http:", "https:"].includes(url.protocol)) throw Error();
+    const measured = await measurements(d);
     let cover = d.coverImageUrl || null;
     if (d.type === "AUDIO" && !cover) {
       cover = getYouTubeThumbnail(d.mediaUrl) || null;
@@ -42,10 +57,10 @@ export async function POST(req: Request) {
         coverImageUrl: cover,
         categoryId: d.categoryId,
         author: d.author || null,
-        pageCount: d.pageCount ? parseInt(d.pageCount) : null,
-        duration: d.duration || null,
+        ...measured,
       },
     });
+    revalidatePath('/achievements');
     return NextResponse.json(item);
   } catch {
     return NextResponse.json({ error: "تعذر حفظ المادة" }, { status: 400 });
@@ -55,6 +70,10 @@ export async function PATCH(req: Request) {
   try {
     await requireAdmin();
     const d = await req.json();
+    const url = new URL(d.mediaUrl);
+    if (!["http:", "https:"].includes(url.protocol)) throw Error();
+    const existing = await prisma.content.findUniqueOrThrow({ where: { id: d.id } });
+    const measured = await measurements(d, existing);
     let cover = d.coverImageUrl || null;
     if (d.type === "AUDIO" && !cover) {
       cover = getYouTubeThumbnail(d.mediaUrl) || null;
@@ -69,10 +88,10 @@ export async function PATCH(req: Request) {
         categoryId: d.categoryId,
         type: d.type,
         author: d.author || null,
-        pageCount: d.pageCount ? parseInt(d.pageCount) : null,
-        duration: d.duration || null,
+        ...measured,
       },
     });
+    revalidatePath('/achievements');
     return NextResponse.json(item);
   } catch {
     return NextResponse.json({ error: "تعذر التعديل" }, { status: 400 });
