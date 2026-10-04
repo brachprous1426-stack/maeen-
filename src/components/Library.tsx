@@ -1,5 +1,5 @@
 ﻿"use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 type Props = {
   user: { id: string; name: string; role: string; groupName?: string | null };
   fixedType?: "BOOK" | "AUDIO";
@@ -145,20 +145,47 @@ export default function Library({ user, fixedType }: Props) {
     [selected, setSelected] = useState<Item | null>(null),
     [progress, setProgress] = useState<any[]>([]),
     [comments, setComments] = useState<any[]>([]),
-    [text, setText] = useState("");
-  async function load() {
-    const r = await fetch(
-      `/api/content?q=${encodeURIComponent(q)}&type=${fixedType || ""}&category=${cat}`,
-    );
-    const d = await r.json();
-    setItems(d.items || []);
-    setCats(d.categories || []);
-    const p = await fetch("/api/progress");
-    setProgress(await p.json());
-  }
+    [text, setText] = useState(""),
+    [loading, setLoading] = useState(true),
+    [loadError, setLoadError] = useState(false);
+  const loadId = useRef(0);
+  const load = useCallback(async () => {
+    const id = ++loadId.current;
+    setLoading(true);
+    setLoadError(false);
+    try {
+      const r = await fetch(
+        `/api/content?q=${encodeURIComponent(q)}&type=${fixedType || ""}&category=${cat}`,
+      );
+      if (!r.ok) throw new Error("Content request failed");
+      const d = await r.json();
+      if (!Array.isArray(d.items) || !Array.isArray(d.categories)) {
+        throw new Error("Invalid content response");
+      }
+      if (id !== loadId.current) return;
+      setItems(d.items);
+      setCats(d.categories);
+    } catch {
+      if (id === loadId.current) setLoadError(true);
+      return;
+    } finally {
+      if (id === loadId.current) setLoading(false);
+    }
+    try {
+      const p = await fetch("/api/progress");
+      if (!p.ok) return;
+      const data = await p.json();
+      if (id === loadId.current && Array.isArray(data)) setProgress(data);
+    } catch {
+      // Progress availability must not change the content loading state.
+    }
+  }, [q, cat, fixedType]);
   useEffect(() => {
     load();
-  }, [q, cat, fixedType]);
+    return () => {
+      loadId.current++;
+    };
+  }, [load]);
   async function open(i: Item) {
     setSelected(i);
     const r = await fetch("/api/comments");
@@ -264,8 +291,15 @@ export default function Library({ user, fixedType }: Props) {
           placeholder="كل التصنيفات"
         />
       </div>
-      <main className="grid">
-        {items.map((i) => (
+      <main className="grid" aria-busy={loading}>
+        {loading ? (
+          <div className="empty" role="status">جاري تحميل المواد…</div>
+        ) : loadError ? (
+          <div className="empty" role="alert">
+            <p>تعذر تحميل المواد. حاول مرة أخرى.</p>
+            <button onClick={() => load()}>إعادة المحاولة</button>
+          </div>
+        ) : items.map((i) => (
           <article className="card" key={i.id} onClick={() => open(i)}>
             <div
               className={"cover " + i.type.toLowerCase()}
@@ -282,7 +316,7 @@ export default function Library({ user, fixedType }: Props) {
             </div>
           </article>
         ))}
-        {!items.length && (
+        {!loading && !loadError && !items.length && (
           <div className="empty">لا توجد مواد مطابقة حالياً.</div>
         )}
       </main>
