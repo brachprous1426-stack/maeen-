@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState } from 'react';
 
@@ -39,7 +39,7 @@ export default function LoginForm() {
       <div className="login-art">
         
         <h1>منصة معين</h1>
-        <p>مساحة هادئة للقراءة والمعرفة</p>
+        <p>معين ,, حيث ترتوي القلوب ..</p>
         <div
           style={{
             marginTop: '40px',
