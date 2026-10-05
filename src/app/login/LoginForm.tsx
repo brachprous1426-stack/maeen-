@@ -54,7 +54,7 @@ export default function LoginForm() {
           <img
             src="/bader-logo.svg"
             alt="فريق بادر"
-            style={{ height: '35px', filter: 'brightness(0) invert(1)' }}
+            style={{ height: '35px' }}
           />
         </div>
       </div>
