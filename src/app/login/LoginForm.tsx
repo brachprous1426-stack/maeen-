@@ -52,9 +52,9 @@ export default function LoginForm() {
         >
           <span style={{ fontSize: '13px', color: '#d2ddd4' }}>إحدى مبادرات</span>
           <img
-            src="/bader.png"
+            src="/bader-logo.svg"
             alt="فريق بادر"
-            style={{ height: '35px' }}
+            style={{ height: '35px', filter: 'brightness(0) invert(1)' }}
           />
         </div>
       </div>
